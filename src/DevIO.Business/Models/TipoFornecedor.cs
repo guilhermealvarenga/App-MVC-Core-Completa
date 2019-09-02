@@ -1,4 +1,4 @@
-﻿namespace AppMvcBasica.Models
+﻿namespace DevIO.Models
 {
     public enum TipoFornecedor {
         PessoaFisica = 1,

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AppMvcBasica.Models
+namespace DevIO.Models
 {
     public class Endereco : Entity
     {
