@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DevIO.App.Configurations;
 using DevIO.Data.Context;
+using KissLog.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,10 @@ namespace DevIO.App
                 .AddEnvironmentVariables();
 
             if (hostEnvironment.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+            else if (hostEnvironment.IsProduction())
             {
                 builder.AddUserSecrets<Startup>();
             }
@@ -56,6 +61,8 @@ namespace DevIO.App
                 app.UseHsts();
             }
 
+            app.UseKissLogMiddleware();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -70,6 +77,8 @@ namespace DevIO.App
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            LogConfig.RegisterKissLogListener(Configuration);
         }
     }
 }
